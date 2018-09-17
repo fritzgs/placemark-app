@@ -14,6 +14,7 @@ import org.wit.placemark.models.PlacemarkModel
 class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
 
   var placemark = PlacemarkModel()
+  var placemarks = ArrayList<PlacemarkModel>()
 
   override fun onCreate(savedInstanceState: Bundle?)
   {
@@ -22,9 +23,10 @@ class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
     btnAdd.setOnClickListener()
     {
       placemark.title = placemarkTitle.text.toString()
-      if(placemark.title.isNotEmpty())
-      {
+      placemark.description = description.text.toString()
+      if(placemark.title.isNotEmpty() && placemark.description.isNotEmpty()) {
         info("Add Button Pressed: $placemarkTitle")
+        info("Description: $description")
       }
       else
       {
