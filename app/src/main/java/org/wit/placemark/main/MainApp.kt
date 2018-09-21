@@ -15,6 +15,10 @@ class MainApp : Application(), AnkoLogger
   {
     super.onCreate()
     info("MAIN: Placemark Started")
+    placemarks.add(PlacemarkModel("One", "About one..."))
+    placemarks.add(PlacemarkModel("Two", "About two..."))
+    placemarks.add(PlacemarkModel("Three", "About three..."))
+
   }
 
 }
