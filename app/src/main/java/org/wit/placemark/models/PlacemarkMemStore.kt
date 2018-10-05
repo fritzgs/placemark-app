@@ -1,9 +1,13 @@
 package org.wit.placemark.models
 
-import org.jetbrains.anko.info
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
+var lastId = 0L
 
+internal fun getId(): Long {
+  return lastId++
+}
 
 class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
 
@@ -14,10 +18,24 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
   }
 
   override fun create(placemark: PlacemarkModel) {
+    placemark.id = getId()
     placemarks.add(placemark)
+    logAll()
+  }
+
+  fun update(placemark: PlacemarkModel) {
+    var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == placemark.id }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+
+      foundPlacemark.image = placemark.image //lab 4 - exercise 1
+
+      logAll();
+    }
   }
 
   fun logAll() {
-    placemarks.forEach{ info("${it}") }
+    placemarks.forEach { info("${it}") }
   }
 }
